@@ -1,6 +1,7 @@
 # Genesis
 Это мой первый проект генетического алгоритма. Реализован ввиде некоторой игры для искусственного интеллекта. 
-Релиз - https://github.com/ArhostCode/Genetic-Algorithm/releases/
+Релиз - https://github.com/ArhostCode/Genetic-Algorithm/releases/ <br>
+
 ###Параметры:
 `--point n` - точечная замена днк из n лучших генотипов
 <br>`--block` - блоковая замена днк 3 лучших генотипов
