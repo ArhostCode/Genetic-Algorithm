@@ -10,8 +10,9 @@ public class Main {
 
     public Main() throws InterruptedException, FileNotFoundException {
         v.setVisible(true);
-        GenCore g = new GenCore(300000, 10, v,false);
-        //g.run();
+        GenCore g = new GenCore(10000, 500, v,false);
+        Bot.isTest = false;
+        g.run();
         g.setGraphical(true);
         g.runWithBrains(load());
         System.out.println(g.getLastBot().steps);

@@ -15,6 +15,7 @@ public class Brain {
     }
 
     public double compute(int[] sensors){
+        hidden = new int[8];
         int k = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 4; j++) {
@@ -28,7 +29,7 @@ public class Brain {
             res += hidden[i] * weights[k];
             k++;
         }
-        //System.out.println(res);
+
         return res;
 
     }

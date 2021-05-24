@@ -14,6 +14,7 @@ public class Bot {
     private boolean isGraphical;
 
     public static int[][] test;
+    public static boolean isTest;
 
     public int x;
 
@@ -31,26 +32,32 @@ public class Bot {
         brain = new Brain();
         board.fill();
         brain.randomize();
-//        x = (int)(1+Math.random()*8);
-//        y = (int)(1+Math.random()*8);
-        x = 1;
-        y = 1;
+        x = (int)(1+Math.random()*8);
+        y = (int)(1+Math.random()*8);
+        if(isTest){
+            x = 1;
+            y = 1;
+        }
         this.v = v;
         this.isGraphical = isGraphical;
-        createTest();
+        if(isTest)
+            createTest();
     }
 
     public Bot(Brain brain, Visualisation v,boolean isGraphical){
         board = new Board();
         board.fill();
         this.brain = brain;
-//        x = (int)(1+Math.random()*8);
-//        y = (int)(1+Math.random()*8);
-        x = 1;
-        y = 1;
+        x = (int)(1+Math.random()*8);
+        y = (int)(1+Math.random()*8);
+        if(isTest){
+            x = 1;
+            y = 1;
+        }
         this.v = v;
         this.isGraphical = isGraphical;
-        createTest();
+        if(isTest)
+            createTest();
     }
 
     private void paintBoard(){
@@ -97,18 +104,18 @@ public class Bot {
         prevx = x;
         prevy = y;
 
-//        if(steps%5==0){
-//            int nx = x;
-//            int ny = y;
-//
-//            while (nx==x | ny == y){
-//                nx = (int)(1+Math.random()*8);
-//                ny = (int)(1+Math.random()*8);
-//            }
-//
-//            board.field[nx][ny] = 1;
-//
-//        }
+        if(steps%5==0){
+            int nx = x;
+            int ny = y;
+
+            while (nx==x | ny == y){
+                nx = (int)(1+Math.random()*8);
+                ny = (int)(1+Math.random()*8);
+            }
+
+            board.field[nx][ny] = 1;
+
+        }
 
         /*if (getFitness() > 1000000){
             for (int i = 0; i < 20; i++) {
@@ -124,7 +131,7 @@ public class Bot {
             return false;
         }
 
-        if(x == 8 & y == 8){
+        if(x == 8 & y == 8 & isTest){
             steps = 10000;
             return false;
         }
@@ -132,8 +139,15 @@ public class Bot {
         getSensors();
         double res = brain.compute(sensors);
 
-        if(steps>150){
+        if(steps>10000){
             steps = 0;
+            System.out.println("TOOOOOOO MANY");
+            try {
+                new GenCore(0,0,v,true).save(brain);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            System.exit(0);
             return false;
         }
 
