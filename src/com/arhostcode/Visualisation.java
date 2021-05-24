@@ -1,20 +1,41 @@
 package com.arhostcode;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Visualisation extends Frame {
-    public ArrayList<Label> ls = new ArrayList<>();
-
+public class Visualisation extends JFrame {
+    public ArrayList<JLabel> ls = new ArrayList<>();
+    public JLabel gen;
+    public JLabel step;
     public Visualisation(){
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        gen = new JLabel("0");
+        step = new JLabel("0");
+
+        JPanel p = new JPanel();
+
+        p.setLocation(10,10);
+        p.setSize(250,330);
+        p.setMaximumSize(new Dimension(250,330));
+        p.setPreferredSize(new Dimension(250,330));
+
         for (int i = 0; i < 100; i++) {
-            Label l = new Label(".");
-            l.setLocation(0,0);
+            JLabel l = new JLabel();
+            l.setSize(20,20);
+            l.setPreferredSize(new Dimension(20,20));
+            l.setMaximumSize(new Dimension(20,20));
             l.setBackground(Color.cyan);
+            l.setOpaque(true);
             ls.add(l);
-            add(l);
+            p.add(l);
+
         }
-        setSize(250,330);
+        add(p);
+        add(gen);
+        add(step);
+        setSize(500,500);
         setLayout(new FlowLayout());
 
     }

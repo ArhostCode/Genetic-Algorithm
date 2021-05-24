@@ -11,7 +11,7 @@ public class Main {
     public Main() throws InterruptedException, FileNotFoundException {
         v.setVisible(true);
         Bot.isTest = true;
-        GenCore g = new GenCore(100000, 300, v,false);
+        GenCore g = new GenCore(100000, 300, v,true);
         GenCore.selecting_algorithm = GenCore.SELECTING_ALGORITHM.POINT_SELECTION;
         GenCore.pointSelectionNumber = 2;
         g.run();

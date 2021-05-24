@@ -122,7 +122,10 @@ public class GenCore {
         }
 
         System.out.println("The best - " + bots[0].getFitness() + " gen - " + k + " steps - "+bots[0].steps);
-
+        if(isGraphical){
+            v.step.setText("Последний результат "+bots[0].getFitness());
+            v.gen.setText("Поколение "+k);
+        }
         lastBot = bots[0];
 
         if(bots[0].steps >1000){
