@@ -18,15 +18,17 @@ public class Bot {
     public static boolean reverseStep = false;
 
     public int x;
-
     public int y;
+
+    public static int testX;
+    public static int testY;
 
     private int prevx;
     private int prevy;
     private int ppx;
     private int ppy;
 
-    public int[] sensors = new int[4]; // 0 - left, 1 - up, 2 - right, 3 - down
+    public double[] sensors = new double[4]; // 0 - left, 1 - up, 2 - right, 3 - down
 
     public Bot(Visualisation v, boolean isGraphical){
 
@@ -124,15 +126,17 @@ public class Bot {
             return false;
         }
 
-        if(x == 6 & y == 1 & isTest){
+        if(x == testX & y == testY & isTest){
             steps = 10000;
+            System.out.println("Congratulations");
             return false;
         }
 
         getSensors();
         double res = brain.compute(sensors);
 
-        if(steps>500){
+
+        if(steps>70){
             steps = 0;
             System.out.println("TOOOOOOO MANY");
             try {
@@ -143,6 +147,8 @@ public class Bot {
             System.exit(0);
             return false;
         }
+        if(isTest)
+            board.field[x][y] = 1;
 
         if(res<=-3 & res > -4){
             x = x-1;
@@ -167,6 +173,9 @@ public class Bot {
             steps = 0;
             return false;
         }
+
+
+
         return true;
     }
 

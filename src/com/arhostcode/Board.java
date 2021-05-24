@@ -3,7 +3,7 @@ package com.arhostcode;
 public class Board {
 
     public static final int size = 8;
-    int[][] field = new int[size+2][size+2];
+    double[][] field = new double[size+2][size+2];
 
     public void fill(){
         for (int i = 0; i < size+2; i++) {

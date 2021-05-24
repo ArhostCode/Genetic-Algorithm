@@ -6,7 +6,7 @@ public class Brain {
 
     public double[] weights = new double[40];
 
-    private int[] hidden = new int[8];
+    private double[] hidden = new double[8];
 
     public void randomize(){
         for (int i = 0; i < weights.length; i++) {
@@ -14,8 +14,8 @@ public class Brain {
         }
     }
 
-    public double compute(int[] sensors){
-        hidden = new int[8];
+    public double compute(double[] sensors){
+        hidden = new double[8];
         int k = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 4; j++) {

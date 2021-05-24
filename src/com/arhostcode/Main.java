@@ -12,7 +12,7 @@ public class Main {
 
         int bot_count = 100;
         int gen = 10000;
-        boolean isGraphical = true;
+        boolean isGraphical = false;
 
         boolean withBrains = false;
 
@@ -46,6 +46,9 @@ public class Main {
                 }
                 case "--test":{
                     Bot.isTest = true;
+                    Bot.testX = Integer.parseInt(args[i+1]);
+                    Bot.testY = Integer.parseInt(args[i+2]);
+                    i+=2;
                     break;
                 }
                 case "--brains":{
