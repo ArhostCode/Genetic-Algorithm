@@ -10,7 +10,7 @@ public class Brain {
 
     public void randomize(){
         for (int i = 0; i < weights.length; i++) {
-            weights[i] = (Math.random() * 4 -2);
+            weights[i] = (Math.random() * 8 -4);
         }
     }
 

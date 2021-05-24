@@ -10,11 +10,13 @@ public class Main {
 
     public Main() throws InterruptedException, FileNotFoundException {
         v.setVisible(true);
-        GenCore g = new GenCore(10000, 500, v,false);
-        Bot.isTest = false;
+        Bot.isTest = true;
+        GenCore g = new GenCore(100000, 300, v,false);
+        GenCore.selecting_algorithm = GenCore.SELECTING_ALGORITHM.POINT_SELECTION;
+        GenCore.pointSelectionNumber = 2;
         g.run();
         g.setGraphical(true);
-        g.runWithBrains(load());
+        g.runWithBrains(load(),100);
         System.out.println(g.getLastBot().steps);
     }
 
@@ -23,7 +25,7 @@ public class Main {
     public Main(Brain brain) throws InterruptedException {
         v.setVisible(true);
         GenCore g = new GenCore(1000, 300, v,true);
-        g.runWithBrains(brain.weights);
+        g.runWithBrains(brain.weights, 100);
     }
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException {

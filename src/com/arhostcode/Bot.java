@@ -15,6 +15,7 @@ public class Bot {
 
     public static int[][] test;
     public static boolean isTest;
+    public static boolean reverseStep = false;
 
     public int x;
 
@@ -28,6 +29,7 @@ public class Bot {
     public int[] sensors = new int[4]; // 0 - left, 1 - up, 2 - right, 3 - down
 
     public Bot(Visualisation v, boolean isGraphical){
+
         board = new Board();
         brain = new Brain();
         board.fill();
@@ -40,8 +42,9 @@ public class Bot {
         }
         this.v = v;
         this.isGraphical = isGraphical;
-        if(isTest)
+        if(isTest){
             createTest();
+        }
     }
 
     public Bot(Brain brain, Visualisation v,boolean isGraphical){
@@ -56,8 +59,9 @@ public class Bot {
         }
         this.v = v;
         this.isGraphical = isGraphical;
-        if(isTest)
+        if(isTest){
             createTest();
+        }
     }
 
     private void paintBoard(){
@@ -104,7 +108,7 @@ public class Bot {
         prevx = x;
         prevy = y;
 
-        if(steps%5==0){
+        if(steps%5==0 & !isTest){
             int nx = x;
             int ny = y;
 
@@ -116,22 +120,11 @@ public class Bot {
             board.field[nx][ny] = 1;
 
         }
-
-        /*if (getFitness() > 1000000){
-            for (int i = 0; i < 20; i++) {
-                System.out.print(brain.weights[i] + ", ");
-            }
-            try {
-                new Main(brain);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
         if(board.field[x][y] == 1){
             return false;
         }
 
-        if(x == 8 & y == 8 & isTest){
+        if(x == 6 & y == 1 & isTest){
             steps = 10000;
             return false;
         }
@@ -139,7 +132,7 @@ public class Bot {
         getSensors();
         double res = brain.compute(sensors);
 
-        if(steps>10000){
+        if(steps>500){
             steps = 0;
             System.out.println("TOOOOOOO MANY");
             try {

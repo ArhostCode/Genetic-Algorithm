@@ -10,16 +10,21 @@ public class GenCore {
 
     Bot[] bots;
 
-    boolean isGraphical;
+    enum SELECTING_ALGORITHM {
+        BLOCK_SELECTION,
+        POINT_SELECTION
+    }
+    public static SELECTING_ALGORITHM selecting_algorithm;
+    private boolean isGraphical;
     private int gen = 0;
-    public Visualisation v;
-    private Brain[] newBrains;
-
+    private Visualisation v;
+    public static int pointSelectionNumber = 0;
     private Brain last;
     private Bot lastBot;
 
     public GenCore(int gen, int bot_count,Visualisation v, boolean isGraphical){
         this.gen = gen;
+
         createTest();
         lastBot = new Bot(v, isGraphical);
         this.isGraphical = isGraphical;
@@ -40,7 +45,6 @@ public class GenCore {
             String q = "";
             while (sc.hasNextLine()){
                 q = sc.nextLine();
-                //System.out.println(q);
                 for (int i = 0; i < q.length(); i++) {
                     field[k][i] = Integer.parseInt(q.split("")[i]);
                 }
@@ -52,20 +56,16 @@ public class GenCore {
         Bot.test = field;
     }
     public void run() throws InterruptedException {
-        boolean genAlive = true;
-
+        boolean genAlive;
+        Brain[] newBrains;
         for (int i = 0; i < gen; i++) {
             genAlive = true;
             while (genAlive){
-
                 genAlive = false;
                 for (int j = 0; j < bots.length; j++) {
-
                     while (bots[j].step()){
                         genAlive=true;
-//                        Thread.sleep(50);
                     }
-
                 }
             }
             System.out.println("Selection");
@@ -93,12 +93,12 @@ public class GenCore {
     }
 
     //Test with generic weights
-    public void runWithBrains(double[] weights) throws InterruptedException {
+    public void runWithBrains(double[] weights, int delay) throws InterruptedException {
         Brain b = new Brain();
         b.weights = weights;
         Bot bot = new Bot(b,v,isGraphical);
         while (bot.step()){
-            Thread.sleep(100);
+            Thread.sleep(delay);
         }
         lastBot=bot;
     }
@@ -120,20 +120,37 @@ public class GenCore {
                 }
             }
         }
+
         System.out.println("The best - " + bots[0].getFitness() + " gen-" + k + " steps - "+bots[0].steps);
+
         lastBot = bots[0];
+
+        if(bots[0].steps >1000){
+            try {
+                save(bots[0].brain);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            System.exit(0);
+        }
         Brain[] brains = new Brain[bots.length];
 
         for (int i = 0; i < brains.length; i++) {
 
-            brains[i] = pointSelection();
-
+            switch (selecting_algorithm){
+                case BLOCK_SELECTION:
+                    brains[i] = blockSelection();
+                    break;
+                case POINT_SELECTION:
+                    brains[i] = pointSelection();
+                    break;
+            }
 
             //Mutation
             if(k!=gen-1) {  //Need
                 if ((int) (Math.random() * 100) == 5) {
-                    System.out.println("Muttated");
-                    brains[i].weights[(int) (Math.random() * 40)] = (Math.random() * 4 - 2);
+                    System.out.println("Mutated");
+                    brains[i].weights[(int) (Math.random() * brains[i].weights.length)] = (Math.random() * 8 - 4);
                 }
             }
         }
@@ -157,8 +174,8 @@ public class GenCore {
 
     public Brain pointSelection(){
         Brain brain = new Brain();
-        for (int j = 0; j < 40; j++) {
-            brain.weights[j] = bots[(int)(Math.random()*(bots.length/2))].brain.weights[j];
+        for (int j = 0; j < brain.weights.length; j++) {
+            brain.weights[j] = bots[(int)(Math.random()*(pointSelectionNumber))].brain.weights[j];
         }
         return brain;
     }
