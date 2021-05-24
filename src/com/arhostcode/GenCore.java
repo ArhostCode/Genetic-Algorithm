@@ -141,12 +141,14 @@ public class GenCore {
         for (int i = 0; i < brains.length; i++) {
 
             switch (selecting_algorithm){
-                case BLOCK_SELECTION:
+                case BLOCK_SELECTION:{
                     brains[i] = blockSelection();
                     break;
-                case POINT_SELECTION:
+                }
+                case POINT_SELECTION:{
                     brains[i] = pointSelection();
                     break;
+                }
             }
 
             //Mutation

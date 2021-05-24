@@ -8,28 +8,68 @@ public class Main {
 
     Visualisation v = new Visualisation();
 
-    public Main() throws InterruptedException, FileNotFoundException {
-        v.setVisible(true);
-        Bot.isTest = true;
-        GenCore g = new GenCore(100000, 300, v,true);
+    public Main(String[] args) throws InterruptedException, FileNotFoundException {
+
+        int bot_count = 100;
+        int gen = 10000;
+        boolean isGraphical = true;
+
+        boolean withBrains = false;
+
         GenCore.selecting_algorithm = GenCore.SELECTING_ALGORITHM.POINT_SELECTION;
-        GenCore.pointSelectionNumber = 2;
-        g.run();
-        g.setGraphical(true);
-        g.runWithBrains(load(),100);
-        System.out.println(g.getLastBot().steps);
-    }
+        GenCore.pointSelectionNumber = 50;
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]){
+                case "--point": {
+                    GenCore.selecting_algorithm = GenCore.SELECTING_ALGORITHM.POINT_SELECTION;
+                    GenCore.pointSelectionNumber = Integer.parseInt(args[i + 1]);
+                    i++;
+                    break;
+                }
+                case "--block":{
+                    GenCore.selecting_algorithm = GenCore.SELECTING_ALGORITHM.BLOCK_SELECTION;
+                    break;
+                }
+                case "--gen":{
+                    gen = Integer.parseInt(args[i+1]);
+                    i++;
+                    break;
+                }
+                case "--bots":{
+                    bot_count = Integer.parseInt(args[i+1]);
+                    i++;
+                    break;
+                }
+                case "--graphical":{
+                    isGraphical = true;
+                    break;
+                }
+                case "--test":{
+                    Bot.isTest = true;
+                    break;
+                }
+                case "--brains":{
+                    withBrains = true;
+                    break;
+                }
 
+            }
+        }
 
-
-    public Main(Brain brain) throws InterruptedException {
         v.setVisible(true);
-        GenCore g = new GenCore(1000, 300, v,true);
-        g.runWithBrains(brain.weights, 100);
+        GenCore g = new GenCore(gen, bot_count, v,isGraphical);
+
+        if(!withBrains) {
+            g.run();
+        } else {
+            g.setGraphical(true);
+            g.runWithBrains(load(), 100);
+        }
     }
+
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException {
-        new Main();
+        new Main(args);
     }
 
     public double[] load() throws FileNotFoundException {
