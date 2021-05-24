@@ -10,12 +10,9 @@ public class Main {
 
     public Main() throws InterruptedException, FileNotFoundException {
         v.setVisible(true);
-        GenCore g = new GenCore(10000, 30, v,false);
-        g.run();
+        GenCore g = new GenCore(300000, 10, v,false);
+        //g.run();
         g.setGraphical(true);
-        for (int i = 0; i < 20; i++) {
-            System.out.print(g.getLast().weights[i] + ", ");
-        }
         g.runWithBrains(load());
         System.out.println(g.getLastBot().steps);
     }

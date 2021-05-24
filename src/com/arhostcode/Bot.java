@@ -1,5 +1,9 @@
 package com.arhostcode;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Bot {
 
     public int steps = 0;
@@ -9,9 +13,16 @@ public class Bot {
     private Visualisation v;
     private boolean isGraphical;
 
+    public static int[][] test;
+
     public int x;
 
     public int y;
+
+    private int prevx;
+    private int prevy;
+    private int ppx;
+    private int ppy;
 
     public int[] sensors = new int[4]; // 0 - left, 1 - up, 2 - right, 3 - down
 
@@ -20,20 +31,26 @@ public class Bot {
         brain = new Brain();
         board.fill();
         brain.randomize();
-        x = (int)(1+Math.random()*8);
-        y = (int)(1+Math.random()*8);
+//        x = (int)(1+Math.random()*8);
+//        y = (int)(1+Math.random()*8);
+        x = 1;
+        y = 1;
         this.v = v;
         this.isGraphical = isGraphical;
+        createTest();
     }
 
     public Bot(Brain brain, Visualisation v,boolean isGraphical){
         board = new Board();
         board.fill();
         this.brain = brain;
-        x = (int)(1+Math.random()*8);
-        y = (int)(1+Math.random()*8);
+//        x = (int)(1+Math.random()*8);
+//        y = (int)(1+Math.random()*8);
+        x = 1;
+        y = 1;
         this.v = v;
         this.isGraphical = isGraphical;
+        createTest();
     }
 
     private void paintBoard(){
@@ -47,6 +64,16 @@ public class Bot {
             }
         }
     }
+
+    public void createTest(){
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                board.field[i][j] = test[i][j];
+            }
+        }
+
+    }
+
 
     private void paintBot(){
         v.paintEnemy(x,y);
@@ -65,18 +92,23 @@ public class Bot {
             paintBot();
         }
 
-        if(steps%5==0){
-            int nx = x;
-            int ny = y;
+        ppx = prevx;
+        ppy = prevy;
+        prevx = x;
+        prevy = y;
 
-            while (nx==x | ny == y){
-                nx = (int)(1+Math.random()*8);
-                ny = (int)(1+Math.random()*8);
-            }
-
-            board.field[nx][ny] = 1;
-
-        }
+//        if(steps%5==0){
+//            int nx = x;
+//            int ny = y;
+//
+//            while (nx==x | ny == y){
+//                nx = (int)(1+Math.random()*8);
+//                ny = (int)(1+Math.random()*8);
+//            }
+//
+//            board.field[nx][ny] = 1;
+//
+//        }
 
         /*if (getFitness() > 1000000){
             for (int i = 0; i < 20; i++) {
@@ -91,8 +123,19 @@ public class Bot {
         if(board.field[x][y] == 1){
             return false;
         }
+
+        if(x == 8 & y == 8){
+            steps = 10000;
+            return false;
+        }
+
         getSensors();
         double res = brain.compute(sensors);
+
+        if(steps>150){
+            steps = 0;
+            return false;
+        }
 
         if(res<=-3 & res > -4){
             x = x-1;
@@ -110,11 +153,18 @@ public class Bot {
             return false;
         }
 
+//        System.out.println("x " + x + " prevX " + prevx);
+//        System.out.println("y " + y + " prevY " + prevy);
+
+        if(x == ppx & y == ppy){
+            steps = 0;
+            return false;
+        }
         return true;
     }
 
     public int getFitness(){
-        return steps*steps;
+        return steps;
     }
 
 }

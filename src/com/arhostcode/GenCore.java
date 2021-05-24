@@ -4,6 +4,7 @@ package com.arhostcode;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class GenCore {
 
@@ -19,14 +20,37 @@ public class GenCore {
 
     public GenCore(int gen, int bot_count,Visualisation v, boolean isGraphical){
         this.gen = gen;
+        createTest();
+        lastBot = new Bot(v, isGraphical);
         this.isGraphical = isGraphical;
         bots = new Bot[bot_count];
         for (int i = 0; i < bot_count; i++) {
             bots[i] = new Bot(v,isGraphical);
         }
         this.v = v;
+
     }
 
+    public void createTest(){
+        int[][] field = new int[10][10];
+        File f = new File("test");
+        try {
+            Scanner sc = new Scanner(f);
+            int k = 0;
+            String q = "";
+            while (sc.hasNextLine()){
+                q = sc.nextLine();
+                //System.out.println(q);
+                for (int i = 0; i < q.length(); i++) {
+                    field[k][i] = Integer.parseInt(q.split("")[i]);
+                }
+                k++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Bot.test = field;
+    }
     public void run() throws InterruptedException {
         boolean genAlive = true;
         for (int i = 0; i < gen; i++) {
@@ -36,12 +60,21 @@ public class GenCore {
                 for (int j = 0; j < bots.length; j++) {
                     while (bots[j].step()){
                         genAlive=true;
-                        //Thread.sleep(50);
+//                        Thread.sleep(50);
+                        if(bots[j].steps>15){
+                            isGraphical = true;
+                            try {
+                                save(bots[j].brain);
+                                System.exit(0);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
 
                 }
             }
-
+            System.out.println("Selection");
             newBrains = selection(i);
 
             for (int j = 0; j < bots.length; j++) {
@@ -50,7 +83,7 @@ public class GenCore {
 
         }
         try {
-            save(last);
+            save(lastBot.brain);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -94,7 +127,7 @@ public class GenCore {
             }
         }
         System.out.println("The best - " + bots[0].getFitness() + " gen-" + k + " steps - "+bots[0].steps);
-
+        lastBot = bots[0];
         Brain[] brains = new Brain[bots.length];
         int t = (int)(Math.random()*20);
         int st = (int)(Math.random()*20);
@@ -119,7 +152,7 @@ public class GenCore {
 
 
             //Mutation
-            if((int)(Math.random()*200) == 5){
+            if((int)(Math.random()*100) == 5){
                 System.out.println("Muttated");
                 brains[i].weights[(int)(Math.random()*40)] = (Math.random() * 4 -2);
             }

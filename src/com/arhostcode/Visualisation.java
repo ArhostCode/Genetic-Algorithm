@@ -27,6 +27,9 @@ public class Visualisation extends Frame {
     public void paintTexture(int x, int y){
         ls.get(x*10+y).setBackground(Color.WHITE);
     }
+    public void paint(int x, int y){
+        ls.get(x*10+y).setBackground(Color.GREEN);
+    }
     int prevX = 1;
     int prevY = 1;
     public void paintEnemy(int x, int y){
