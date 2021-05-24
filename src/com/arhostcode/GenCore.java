@@ -121,7 +121,7 @@ public class GenCore {
             }
         }
 
-        System.out.println("The best - " + bots[0].getFitness() + " gen-" + k + " steps - "+bots[0].steps);
+        System.out.println("The best - " + bots[0].getFitness() + " gen - " + k + " steps - "+bots[0].steps);
 
         lastBot = bots[0];
 
