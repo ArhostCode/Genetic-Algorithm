@@ -92,25 +92,23 @@ public class Bot {
             return false;
         }
         getSensors();
-        int res = brain.compute(sensors);
+        double res = brain.compute(sensors);
 
-        if(res<=-4){
+        if(res<=-3 & res > -4){
             x = x-1;
             steps++;
-        }
-        if(res>-4 & res <= -3){
+        } else if(res<=-2 & res > -3){
             y = y-1;
             steps++;
-        }
-        if(res>-3 & res <= -2){
+        } else if(res<=-1 & res > -2){
             x = x+1;
             steps++;
-        }
-        if(res>-2){
+        }else if(res<=0 & res > -1){
             y = y+1;
             steps++;
+        } else {
+            return false;
         }
-
 
         return true;
     }
