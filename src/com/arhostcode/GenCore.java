@@ -37,7 +37,7 @@ public class GenCore {
     }
 
     public void createTest(){
-        int[][] field = new int[10][10];
+        int[][] field = new int[Board.size+2][Board.size+2];
         File f = new File("test");
         try {
             Scanner sc = new Scanner(f);
@@ -153,8 +153,7 @@ public class GenCore {
 
             //Mutation
             if(k!=gen-1) {  //Need
-                if ((int) (Math.random() * 100) == 5) {
-                    System.out.println("Mutated");
+                if ((int) (Math.random() * 25) == 5) {
                     brains[i].weights[(int) (Math.random() * brains[i].weights.length)] = (Math.random() * 8 - 4);
                 }
             }

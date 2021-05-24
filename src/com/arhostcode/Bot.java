@@ -36,8 +36,8 @@ public class Bot {
         brain = new Brain();
         board.fill();
         brain.randomize();
-        x = (int)(1+Math.random()*8);
-        y = (int)(1+Math.random()*8);
+        x = (int)(1+Math.random()*Board.size);
+        y = (int)(1+Math.random()*Board.size);
         if(isTest){
             x = 1;
             y = 1;
@@ -53,8 +53,8 @@ public class Bot {
         board = new Board();
         board.fill();
         this.brain = brain;
-        x = (int)(1+Math.random()*8);
-        y = (int)(1+Math.random()*8);
+        x = (int)(1+Math.random()*Board.size);
+        y = (int)(1+Math.random()*Board.size);
         if(isTest){
             x = 1;
             y = 1;
@@ -67,8 +67,8 @@ public class Bot {
     }
 
     private void paintBoard(){
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < Board.size+2; i++) {
+            for (int j = 0; j < Board.size+2; j++) {
                 if(board.field[i][j] == 1){
                     v.paintWall(i,j);
                 }else{
@@ -79,8 +79,8 @@ public class Bot {
     }
 
     public void createTest(){
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < Board.size+2; i++) {
+            for (int j = 0; j < Board.size+2; j++) {
                 board.field[i][j] = test[i][j];
             }
         }
@@ -115,8 +115,8 @@ public class Bot {
             int ny = y;
 
             while (nx==x | ny == y){
-                nx = (int)(1+Math.random()*8);
-                ny = (int)(1+Math.random()*8);
+                nx = (int)(1+Math.random()*Board.size);
+                ny = (int)(1+Math.random()*Board.size);
             }
 
             board.field[nx][ny] = 1;
@@ -136,7 +136,7 @@ public class Bot {
         double res = brain.compute(sensors);
 
 
-        if(steps>70){
+        if(steps>70 & !isTest){
             steps = 0;
             System.out.println("TOOOOOOO MANY");
             try {

@@ -2,7 +2,7 @@ package com.arhostcode;
 
 public class Board {
 
-    public static final int size = 8;
+    public static final int size = 18;
     double[][] field = new double[size+2][size+2];
 
     public void fill(){
