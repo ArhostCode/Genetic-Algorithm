@@ -1,4 +1,4 @@
-package com.arhostcode;
+package com.arhostcode.utils;
 
 public class ArgumentsParser {
 }

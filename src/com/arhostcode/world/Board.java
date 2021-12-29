@@ -1,4 +1,4 @@
-package com.arhostcode;
+package com.arhostcode.world;
 
 public class Board {
 

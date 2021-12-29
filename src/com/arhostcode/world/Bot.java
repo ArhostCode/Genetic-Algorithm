@@ -1,4 +1,6 @@
-package com.arhostcode;
+package com.arhostcode.world;
+
+import com.arhostcode.ai_core.Brain;
 
 public class Bot {
 

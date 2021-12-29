@@ -1,4 +1,7 @@
-package com.arhostcode;
+package com.arhostcode.renderer;
+
+import com.arhostcode.world.Board;
+import com.arhostcode.world.Position;
 
 import javax.swing.*;
 import java.awt.*;

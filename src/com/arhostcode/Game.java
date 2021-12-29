@@ -1,5 +1,10 @@
 package com.arhostcode;
 
+import com.arhostcode.ai_core.GeneticCore;
+import com.arhostcode.renderer.Visualizer;
+import com.arhostcode.world.Board;
+import com.arhostcode.world.Bot;
+
 public class Game {
 
     private Bot[] bots;

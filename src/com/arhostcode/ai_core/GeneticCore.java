@@ -1,6 +1,6 @@
-package com.arhostcode;
+package com.arhostcode.ai_core;
 
-import java.util.ArrayList;
+import com.arhostcode.world.Bot;
 
 public class GeneticCore {
 

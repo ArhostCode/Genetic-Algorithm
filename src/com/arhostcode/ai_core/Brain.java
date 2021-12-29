@@ -1,4 +1,6 @@
-package com.arhostcode;
+package com.arhostcode.ai_core;
+
+import com.arhostcode.world.Direction;
 
 import java.util.Arrays;
 
