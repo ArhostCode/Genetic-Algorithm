@@ -26,15 +26,16 @@ public class Board {
     }
 
     public double getDistanceToNearestBlock(Position position, Direction direction){
-        double distance = 0.5;
+        double distance = 0;
         while (isPositionOnBoard(position)){
             position.add(direction);
-            if(isBlock(position))
-                return 1 / distance;
             distance += 1;
+            if(isBlock(position)) {
+                return 1 / distance;
+            }
 
         }
-        return 1 / distance;
+        return 1 / (distance + 0.5);
     }
 
     private boolean isPositionOnBoard(Position position){

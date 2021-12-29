@@ -12,12 +12,12 @@ public class Brain {
 
     private final int RANDOM_WEIGHT_OFFSET = 4;
 
-    public double[] layer0 = new double[INPUT_LAYER_NEURON_COUNT];
-    public double[] layer1 = new double[HIDDEN_LAYER_NEURON_COUNT];
-    public double[] layer2 = new double[OUTPUT_LAYER_NEURON_COUNT];
+    private double[] layer0 = new double[INPUT_LAYER_NEURON_COUNT];
+    private double[] layer1 = new double[HIDDEN_LAYER_NEURON_COUNT];
+    private double[] layer2 = new double[OUTPUT_LAYER_NEURON_COUNT];
 
-    public double[] layer1Weights = new double[INPUT_LAYER_NEURON_COUNT * HIDDEN_LAYER_NEURON_COUNT];
-    public double[] layer2Weights = new double[OUTPUT_LAYER_NEURON_COUNT * HIDDEN_LAYER_NEURON_COUNT];
+    private double[] layer1Weights = new double[INPUT_LAYER_NEURON_COUNT * HIDDEN_LAYER_NEURON_COUNT];
+    private double[] layer2Weights = new double[OUTPUT_LAYER_NEURON_COUNT * HIDDEN_LAYER_NEURON_COUNT];
 
     public Direction compute(double[] sensorsValue) {
         fillWeightsArraysWithZero();

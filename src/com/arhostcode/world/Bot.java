@@ -21,6 +21,11 @@ public class Bot {
         previousLastPosition = new Position(0, 0);
     }
 
+    public Bot(Position position) {
+        this();
+        this.position = position;
+    }
+
     public Bot(Brain brain) {
         this();
         this.brain = brain;
@@ -35,7 +40,7 @@ public class Bot {
         stepsCount++;
     }
 
-    public void checkAlive(Board board) {
+    public void checkDeathConditions(Board board) {
         if (board.isBlock(position))
             alive = false;
 

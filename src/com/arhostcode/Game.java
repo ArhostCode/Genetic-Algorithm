@@ -41,7 +41,7 @@ public class Game {
     private void runPopulation() throws InterruptedException {
         for (Bot bot : bots) {
             while (bot.isAlive()) {
-                bot.checkAlive(board);
+                bot.checkDeathConditions(board);
                 if (bot.isAlive()) {
                     bot.doStep(board);
                     if (bot.getFitness() > 100)
