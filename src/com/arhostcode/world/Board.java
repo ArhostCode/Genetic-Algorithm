@@ -5,6 +5,7 @@ public class Board {
     public static final int BORDER_SIZE = 1;
 
     public static final int BOARD_SIZE = 18;
+
     private Cell[][] field = new Cell[BOARD_SIZE + BORDER_SIZE * 2][BOARD_SIZE + BOARD_SIZE * 2];
 
     public void initialize() {
