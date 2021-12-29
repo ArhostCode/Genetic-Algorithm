@@ -8,7 +8,7 @@ public enum Direction {
         }
 
         public int getTranslationY() {
-            return 1;
+            return -1;
         }
     },
     DOWN {
@@ -17,7 +17,7 @@ public enum Direction {
         }
 
         public int getTranslationY() {
-            return -1;
+            return 1;
         }
     },
     LEFT{

@@ -16,7 +16,7 @@ public class Bot {
     public Bot() {
         brain = new Brain();
         brain.randomizeWeights();
-        position = new Position((int) (1 + Math.random() * Board.BOARD_SIZE), (int) (1 + Math.random() * Board.BOARD_SIZE));
+        position = new Position((int) (Board.BORDER_SIZE + Math.random() * Board.BOARD_SIZE), (int) (Board.BORDER_SIZE + Math.random() * Board.BOARD_SIZE));
         previousPosition = new Position(0, 0);
         previousLastPosition = new Position(0, 0);
     }
@@ -38,9 +38,6 @@ public class Bot {
     public void checkAlive(Board board) {
         if (board.isBlock(position))
             alive = false;
-
-//        if (stepsCount > 80)
-//            alive = false;
 
         if (position.equals(previousLastPosition)) {
             alive = false;

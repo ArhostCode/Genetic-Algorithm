@@ -17,6 +17,13 @@ public class Game {
         visualizer = new Visualizer();
         createBoard();
         createFirstPopulation(populationCount);
+
+        board.setBlock(10,10);
+        board.setBlock(10,8);
+        board.setBlock(10,6);
+        board.setBlock(10,4);
+        board.setBlock(6,4);
+        board.setBlock(6,6);
     }
 
     private void createFirstPopulation(int populationCount) {

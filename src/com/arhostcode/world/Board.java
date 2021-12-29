@@ -2,7 +2,7 @@ package com.arhostcode.world;
 
 public class Board {
 
-    private final int BORDER_SIZE = 1;
+    public static final int BORDER_SIZE = 1;
 
     public static final int BOARD_SIZE = 18;
     private Cell[][] field = new Cell[BOARD_SIZE + BORDER_SIZE * 2][BOARD_SIZE + BOARD_SIZE * 2];
@@ -24,21 +24,8 @@ public class Board {
         return x == 0 | y == 0 | x == BOARD_SIZE + 1 | y == BOARD_SIZE + 1;
     }
 
-    public Cell getFieldCell(int x, int y) {
-        return field[y][x];
-    }
-
-    public void printField(){
-        for (int i = 0; i < BOARD_SIZE + 2; i++) {
-            for (int j = 0; j < BOARD_SIZE + 2; j++) {
-                System.out.print(field[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
     public double getDistanceToNearestBlock(Position position, Direction direction){
-        double distance = 0.001;
+        double distance = 0.5;
         while (isPositionOnBoard(position)){
             position.add(direction);
             if(isBlock(position))
@@ -61,7 +48,7 @@ public class Board {
         return field[y][x].isBlockCell();
     }
 
-    public Cell[][] getField() {
-        return field;
+    public void setBlock(int x, int y){
+        field[y][x].setBlockCell();
     }
 }
